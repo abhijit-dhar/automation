@@ -1,0 +1,21 @@
+name: "regression"
+nodes: {
+    name: "ix1"
+    type: Unknown
+        config: {
+        image: "docker-local-nas.artifactorylbj.it.keysight.com/packages_rustic/l23_protocols:1.00.0.9"
+    }
+}
+nodes: {
+    name: "ix2"
+    type: Unknown
+        config: {
+        image: "docker-local-nas.artifactorylbj.it.keysight.com/packages_rustic/l23_protocols:1.00.0.9"
+    }
+}
+links: {
+    a_node: "ix1"
+    a_int: "eth1:12.12.12.1/24"
+    z_node: "ix2"
+    z_int: "eth1:12.12.12.2/24"
+}
