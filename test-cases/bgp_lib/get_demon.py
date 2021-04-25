@@ -23,7 +23,6 @@ def demon_up(pod_name, proto, ns=None) :
         get_demon = "kubectl exec %s -- cat /proc/%s/maps | grep -i %s"\
             %(pod_name, pid, proto)
 
-
     f = os.popen(get_demon)
     retval = f.read().rstrip()
     f.close()

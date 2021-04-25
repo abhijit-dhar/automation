@@ -18,4 +18,5 @@ def watch (namespace, time_out, count) :
                     if (up_count == count) :
                         return ip_list
         time_out -= 1
-    return None   
+    return None
+
