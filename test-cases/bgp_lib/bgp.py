@@ -20,20 +20,6 @@ def status_to_string(status):
     else:
         return "UNSPECIFIED"
 
-def demon_up(proto, pod_name) :
-    get_pid = "kubectl exec %s -- pidof InterfaceManager" %(pod_name)
-    f = os.popen(get_pid)
-    pid = f.read().rstrip()
-    f.close()
-
-    get_demon = "kubectl exec %s -- cat /proc/%s/maps | grep -i %s"\
-            %(pod_name, pid, proto)
-    f = os.popen(get_demon)
-    retval = f.read().rstrip()
-    f.close()
-
-    return retval
-
 def run(pod_ip,
         pod_name,
         namespace,

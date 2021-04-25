@@ -3,6 +3,22 @@ import os
 import sys
 
 def demon_up(pod_name, proto, ns=None) :
+    """This function is very much ixia pod specific. This function gets 
+    inside the given ixia pod and verifies if protocol process is running there.
+
+    Args:
+        pod_name (string): The pod name
+        proto (string): Name of the protocol process. Currently only 'bgp'
+            is supported.
+
+        ns (string) : The namespace.
+
+    Returns:
+        string : output of the following command 
+        "cat /proc/`pidof InterfaceManage`/maps | gerp -i <proto>."
+        There will be lines of string as the result of the above command if
+        <proto> process is running; None otherwise.
+    """
     if (ns) :
         get_pid = "kubectl exec %s -n %s -- pidof InterfaceManager"\
             %(pod_name, ns)
@@ -29,6 +45,12 @@ def demon_up(pod_name, proto, ns=None) :
 
     return retval
 
+
+"""
+This is a python module as well as a runnable program. To run it as a
+standalone program and get its command line arguments just type the 
+command "./get_demon.py" at the command prompt.
+"""
 if __name__ == '__main__':
     if (len(sys.argv) < 3) :
         print("usage:\t%s <pod_name> <protocol> <namespace>" %(sys.argv[0]))
