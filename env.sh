@@ -2,5 +2,12 @@
 # Export KNE cli path.
 #------------------------------------------------------------------------------ 
 PWD=`pwd`
-export KNE_BIN_PATH='/home/ixia/kne/kne_cli/kne_cli'
-export PYTHONPATH="$PYTHONPATH:$PWD/test-cases/:$PWD/test-cases/grpc_lib:./:../" 
+KNE_BIN_PATH='/home/ixia/kne/kne_cli/kne_cli'
+
+PYTHONPATH="$PYTHONPATH:$PWD/test-cases/"
+PYTHONPATH="$PYTHONPATH:$PWD/test-cases/grpc_lib"
+PYTHONPATH="$PYTHONPATH:$PWD/test-cases/bgp_lib"
+PYTHONPATH="$PYTHONPATH:./:../"
+
+export KNE_BIN_PATH
+export PYTHONPATH

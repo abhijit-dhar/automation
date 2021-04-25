@@ -217,8 +217,6 @@ if __name__ == '__main__':
         bgp_route_count_step=0,
     )
 
-    print("gnmic -a %s:50051 -u dummy -p dummy --insecure subscribe --path /protocols/bgp" %(pod_ip1)) 
-
     run(pod_ip=pod_ip2,
         pod_name=pod_name2,
         namespace=namespace,
@@ -251,5 +249,4 @@ if __name__ == '__main__':
         bgp_nexthop_ip_step='0.0.0.1',
         bgp_route_count_step=0,
     )
-    print("gnmic -a %s:50051 -u dummy -p dummy --insecure subscribe --path /protocols/bgp" %(pod_ip2)) 
 

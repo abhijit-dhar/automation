@@ -11,8 +11,10 @@ def watch (namespace, time_out, count) :
             if (i.metadata.namespace == namespace) :
                 if (i.status.phase.lower() == 'running') :
                     ip = i.status.pod_ip
-                    if ip not in ip_list:
-                        ip_list.append(ip)
+                    name = i.metadata.name
+                    ns = i.metadata.namespace
+                    if (ip, name, ns) not in ip_list:
+                        ip_list.append((ip, name, ns))
                         up_count = len(ip_list)
                         
                     if (up_count == count) :
