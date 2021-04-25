@@ -10,6 +10,23 @@ from utils.common_cmd import watch
 from utils import gnmic
 
 def test_running_pod (running_pods, kne, config) :
+    """ The objective of this test cases is to verify the following
+        1. kne utility can deploy a simple topology in the system.
+        2. Two basic Ixia BGP sessions can be configured on the top of the 
+           above topology.
+        3. Gnmi utility can fetch BGP statistics from Ixia BGP pods.
+        4. Value returned by the statistics is not the concern of this test case.
+
+    Args:
+        running_pods (list): Detail list of all the pods on all the namespaces 
+            in this system
+
+        kne (string): The path of the kne_cli utility
+        config (string): The path of the config (topology) file used by kne_cli.
+
+    Returns:
+        None
+    """
     if (running_pods) :
         if (kne) :
             kne_execute(kne=kne, command="create", filename=config)
@@ -25,7 +42,7 @@ def test_running_pod (running_pods, kne, config) :
             # 10 bgp routers per pod
             config_count = 10
 
-            # configure and run bgp router on pod 1 
+            # Configure and run BGP router on pod 1 
             bgp.run(pod_ip=ip_list[0][0],
                 pod_name=ip_list[0][1],
                 namespace=ip_list[0][2],
@@ -61,7 +78,7 @@ def test_running_pod (running_pods, kne, config) :
 
             time.sleep(5)  
 
-            # configure and run bgp router on pod 1 
+            # Configure and run BGP router on pod 2 
             bgp.run(pod_ip=ip_list[1][0],
                 pod_name=ip_list[1][1],
                 namespace=ip_list[1][2],
@@ -97,7 +114,6 @@ def test_running_pod (running_pods, kne, config) :
 
             time.sleep(5)
 
-            #kne_execute(kne=kne, command="delete", filename=config)
             stat_error_count = 0
             for demon in [ip_list[0][0] + ':' + '50051',  ip_list[1][0] + ':' + '50051'] :
                 print('getting statistics from stat demon %s' %(demon))
@@ -111,6 +127,8 @@ def test_running_pod (running_pods, kne, config) :
             if (stat_error_count):
                  pytest.fail("not all bgp instances are up an running")
 
+            # Delete the pods
+            kne_execute(kne=kne, command="delete", filename=config)
         else :
             pytest.fail("kne utility is not available.")
     else :
