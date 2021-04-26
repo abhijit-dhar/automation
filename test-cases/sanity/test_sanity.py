@@ -15,6 +15,8 @@ def test_running_pod (running_pods, kne, config) :
         2. Two basic Ixia BGP sessions can be configured on the top of the 
            above topology.
         3. Gnmi utility can fetch BGP statistics from Ixia BGP pods.
+           This utility is used several times (depending on stress_count) to 
+           fetch the stats from BGP pods.
         4. Value returned by the statistics is not the concern of this test case.
 
     Args:
@@ -115,14 +117,16 @@ def test_running_pod (running_pods, kne, config) :
             time.sleep(5)
 
             stat_error_count = 0
-            for demon in [ip_list[0][0] + ':' + '50051',  ip_list[1][0] + ':' + '50051'] :
-                print('getting statistics from stat demon %s' %(demon))
-                retval = gnmic.stat(demon, ['/protocols/bgp/'])
-                if (retval) :
-                    for v in retval :
-                        print("\t%s"%(v))
-                else :
-                    stat_error_count += 1
+            stress_count = 1
+            for i in range(stress_count) :
+                for demon in [ip_list[0][0] + ':' + '50051',  ip_list[1][0] + ':' + '50051'] :
+                    print('getting statistics from stat demon %s' %(demon))
+                    retval = gnmic.stat(demon, ['/protocols/bgp/'])
+                    if (retval) :
+                        for v in retval :
+                            print("\t%s"%(v))
+                    else :
+                        stat_error_count += 1
 
             if (stat_error_count):
                  pytest.fail("not all bgp instances are up an running")

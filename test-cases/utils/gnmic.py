@@ -4,6 +4,18 @@ from gnmi import capabilites, get, delete, replace, update, subscribe
 from gnmi.exceptions import GrpcDeadlineExceeded
 
 def stat(target, paths) :
+    """This function is used to fetch statistics from ixia pods using
+    gnmic.
+
+    Args:
+        target (string): This is generally a IP address (ip-addr:port) format.
+        path (string): This is the specification statistics to be fetched.
+
+    Returns:
+        list: list of statistics element in the format as given below:
+            [stats_name1:value, stats_name2:value, ...,]
+
+    """
     stat_list = []
     try:
         for notif in subscribe(target, paths, auth=("admin", ""),
@@ -20,6 +32,12 @@ def stat(target, paths) :
     
     return stat_list
 
+
+"""
+This is a python module as well as a runnable program. To run it as a
+standalone program and get its command line arguments just type the
+command "./gnmic.py" at the command prompt.
+"""
 if __name__ == "__main__" :
     if (len(sys.argv) < 3) :
         print("usage : argv[0] <target> <comma seperated list of paths>")
