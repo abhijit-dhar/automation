@@ -1,0 +1,7 @@
+grpcio
+protobuf
+netaddr
+python-dateutil
+Kubernetes
+networkx
+gnmi
