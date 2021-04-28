@@ -1,6 +1,6 @@
 import sys
 from gnmi.structures import SubscribeOptions
-from gnmi import capabilites, get, delete, replace, update, subscribe
+from gnmi.api import capabilites, get, delete, replace, update, subscribe
 from gnmi.exceptions import GrpcDeadlineExceeded
 
 def stat(target, paths) :
@@ -40,7 +40,7 @@ command "./gnmic.py" at the command prompt.
 """
 if __name__ == "__main__" :
     if (len(sys.argv) < 3) :
-        print("usage : argv[0] <target> <comma seperated list of paths>")
+        print("usage : ./gnmic.py <target> <comma seperated list of paths>")
     else :
         target = sys.argv[1]
         path = sys.argv[2]

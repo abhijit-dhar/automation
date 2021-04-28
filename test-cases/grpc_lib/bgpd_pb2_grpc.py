@@ -2,8 +2,8 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import bgpd_pb2 as bgpd__pb2
-import common_pb2 as common__pb2
+import grpc_lib.bgpd_pb2 as bgpd__pb2
+import grpc_lib.common_pb2 as common__pb2
 
 
 class BGPStub(object):

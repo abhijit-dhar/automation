@@ -2,8 +2,8 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import common_pb2 as common__pb2
-import interface_pb2 as interface__pb2
+import grpc_lib.common_pb2 as common__pb2
+import grpc_lib.interface_pb2 as interface__pb2
 
 
 class InterfaceStub(object):

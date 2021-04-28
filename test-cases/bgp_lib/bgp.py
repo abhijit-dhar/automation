@@ -1,16 +1,16 @@
-#!/usr/bin/python3
+#!/usr/bin/python3.
 import os
 import sys
 
 import logging
 import grpc
-import common_pb2
-import interface_pb2
-import interface_pb2_grpc
-import bgpd_pb2
-import bgpd_pb2_grpc
+import grpc_lib.common_pb2 as common_pb2
+import grpc_lib.interface_pb2 as interface_pb2
+import grpc_lib.interface_pb2_grpc as interface_pb2_grpc
+import grpc_lib.bgpd_pb2 as bgpd_pb2
+import grpc_lib.bgpd_pb2_grpc as bgpd_pb2_grpc 
 
-import get_demon
+import bgp_lib.get_demon as get_demon
 
 def status_to_string(status):
     if status == common_pb2.StatusResponse.SUCCESS:
