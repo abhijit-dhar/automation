@@ -4,4 +4,4 @@ netaddr
 python-dateutil
 Kubernetes
 networkx
-gnmi
+gnmi-py
