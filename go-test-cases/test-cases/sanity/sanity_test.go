@@ -65,7 +65,14 @@ func TestConnections(t *testing.T) {
     fmt.Printf("Running traffic for 5 seconds\n")
     time.Sleep(5 * time.Second)
 
-    api.GetState(&client)
+    stat_request := `{
+        "choice": "port",
+        "port": {
+            "port_names": ["p1", "p2"],
+            "column_names": ["frames_rx", "frames_tx"]
+        }
+    }`
+    api.GetState(&client, stat_request)
     if (client.Error != nil)  {
         t.Errorf("Error %s", client.Error)
     } else {

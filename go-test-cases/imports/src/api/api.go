@@ -162,11 +162,25 @@ func Traffic(client *ClientContext, flow_names *[]string, state string) {
 }
 
 
-func GetState(client *ClientContext) {
+func GetState(client *ClientContext, stat_request string) {
+    var payload otgclient.GetMetricsJSONRequestBody
     ctx := client.Ctx
     myClient := client.Client
-    var body otgclient.GetMetricsJSONRequestBody
-    response, err := myClient.GetMetricsWithResponse(ctx, body)
+    //content := `{
+    //    "choice": "port",
+    //    "port": {
+    //        "port_names": ["p1", "p2"],
+    //        "column_names": ["frames_rx", "frames_tx"]
+    //    }
+    //}`
+
+    err := json.Unmarshal([]byte(stat_request), &payload)
+    if (err != nil)  {
+        client.Error = err
+        return
+    }
+
+    response, err := myClient.GetMetricsWithResponse(ctx, payload)
     client.Response.Body = response.Body
     client.Response.HTTPResponse = response.HTTPResponse
     client.Response.JSON400 = response.JSON400
