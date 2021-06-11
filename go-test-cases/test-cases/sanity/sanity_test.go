@@ -5,6 +5,7 @@ import (
     "testing"
     "fmt"
     "context"
+    "time"
 )
 
 // test harness imports
@@ -60,4 +61,18 @@ func TestConnections(t *testing.T) {
                    string(client.Response.Body))
         fmt.Printf("GREAT SUCCESS (Traffic Started)\n")
     }
+
+    fmt.Printf("Running traffic for 5 seconds\n")
+    time.Sleep(5 * time.Second)
+
+    api.GetState(&client)
+    if (client.Error != nil)  {
+        t.Errorf("Error %s", client.Error)
+    } else {
+        fmt.Printf("Status code = %d, response = %s\n",
+                   client.Response.StatusCode(),
+                   string(client.Response.Body))
+        fmt.Printf("GREAT SUCCESS (Traffic Started)\n")
+    }
+
 }

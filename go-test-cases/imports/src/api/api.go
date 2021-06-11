@@ -8,6 +8,8 @@ import (
     "context"
     "net/http"
     "crypto/tls"
+    // "github.com/openconfig/gnmi/client"
+    // "github.com/golang/protobuf/proto"
 )
 
 
@@ -36,7 +38,7 @@ type ClientContext struct {
     Response *otgclient.SetConfigResponse
     Error error
 }
- 
+
 
 // Function to read test-bed settings. YThe setting is expected to be a a JSON
 // file with the format as in the example below
@@ -150,10 +152,25 @@ func Traffic(client *ClientContext, flow_names *[]string, state string) {
     traffic.FlowNames = flow_names
 
     start_response, err := myClient.SetTransmitStateWithResponse(ctx, traffic)
-    client.Response.Body =  start_response.Body
+    client.Response.Body = start_response.Body
     client.Response.HTTPResponse = start_response.HTTPResponse
     client.Response.JSON200 = start_response.JSON200
     client.Response.JSON400 = start_response.JSON400
     client.Response.JSON500 = start_response.JSON500
     client.Error = err
+    return
+}
+
+
+func GetState(client *ClientContext) {
+    ctx := client.Ctx
+    myClient := client.Client
+    var body otgclient.GetMetricsJSONRequestBody
+    response, err := myClient.GetMetricsWithResponse(ctx, body)
+    client.Response.Body = response.Body
+    client.Response.HTTPResponse = response.HTTPResponse
+    client.Response.JSON400 = response.JSON400
+    client.Response.JSON500 = response.JSON500
+    client.Error = err
+    return
 }

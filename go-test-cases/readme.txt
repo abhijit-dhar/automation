@@ -1,3 +1,6 @@
+###############################################################################
+# mnemonic
+###############################################################################
 export GOPATH=$HOME/automation/go-test-cases/imports/
 # get the go otg client
 # https://github.com/open-traffic-generator/models/releases/download/v0.4.0/goclient.tar.gz
@@ -5,4 +8,6 @@ export GOPATH=$HOME/automation/go-test-cases/imports/
 # copy the client.go to $GOPATH/otgclient  
 go build otgclient
 go build api
+# Gnmi installation
+go get -u github.com/openconfig/gnmi/cmd/gnmi_cli
 
